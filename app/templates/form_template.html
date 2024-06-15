@@ -1,0 +1,19 @@
+
+
+{% from '__helpers.html' import form_generate %}
+
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="form-message">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {{ form_generate(form) }}
+</div>
+{% endblock content %}

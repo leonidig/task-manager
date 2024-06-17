@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>Tasks</title>
+  </head>
+  <body>
+    <style>
+
+        body {
+            background-color: #1c1b29;
+            color: #f1f1f1;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2a2740;
+            padding: 10px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .nav-left a, .nav-right a {
+            margin-right: 10px;
+            color: #b19cd9;
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-right .user-email {
+            margin-right: 10px;
+            color: #f1f1f1;
+            font-weight: bold;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        
+        h1 {
+            margin-bottom: 30px;
+            color: #b19cd9;
+        }
+        
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #3c365e;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .task-item:hover {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .task-details {
+            max-width: 70%;
+        }
+        
+        .task-details h2 {
+            margin: 0 0 5px 0;
+            color: #b19cd9;
+            font-size: 20px;
+        }
+        
+        .task-details p {
+            margin: 0;
+            color: #a8a3c5;
+        }
+        
+        .btn-primary {
+            background-color: #5e548e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: bold;
+            color: #f1f1f1;
+            transition: background-color 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: #4c407a;
+        }
+        
+        .btn-outline-primary {
+            border: 1px solid #5e548e;
+            color: #5e548e;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: #5e548e;
+            color: #f1f1f1;
+        }
+        .h4 {
+            color: red;
+        }
+        
+
+    </style>
+    <nav class="navbar">
+      <div class="nav-left">
+        <a href="/publish" class="btn btn-outline-primary">Add task</a>
+        <a href="/register" class="btn btn-outline-primary">Register</a>
+        <a href="/login" class="btn btn-outline-primary">Login</a>
+      </div>
+      <div class="nav-right">
+        <span class="user-email">{{ current_user.email}}</span>
+        <a href="/tasks/{{ current_user.email }}" class="btn btn-outline-primary">Profile</a>
+      </div>
+    </nav>
+    <div class="container">
+      <h1>All Your Tasks</h1>
+      {% for task in tasks %}
+        <div class="task-item">
+          <div class="task-details">
+            <h2>{{ task.title }}</h2>
+            <p>{{ task.published }}</p>
+
+            {% if task.done %}
+                <h4>Task Done</h4>
+            {% elif not task.done %}
+                <h4>Task Not Done</h4>
+            {% else %}
+                <h4>Error with status</h4>
+            {% endif %}
+
+          </div>
+          <a href="{{ url_for('task_info', task_id=task.id) }}" class="btn btn-primary">More Info</a>
+        </div>
+      {% endfor %}
+    </div>
+  </body>
+</html>

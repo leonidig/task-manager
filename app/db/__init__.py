@@ -21,4 +21,6 @@ def down():
 
 from .models import User, Task
 
+
+down()
 up()

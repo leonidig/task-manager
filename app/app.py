@@ -157,7 +157,8 @@ def complete_task(task_id):
 def user_completed_tasks(user_email):
     with Session.begin() as session:
         done_tasks = session.scalars(select(Task).where(Task.author == current_user.email, Task.done == True)).all()
-        return render_template("completed_tasks.html", done_tasks=done_tasks, user_email=current_user.email)
+        task_lenght = len(done_tasks)
+        return render_template("completed_tasks.html", done_tasks=done_tasks, user_email=current_user.email, task_lenght=task_lenght)
 
                                 
 
